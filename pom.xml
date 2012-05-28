@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dojo</groupId>
+    <artifactId>monads</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Monads in action</name>
+    <inceptionYear>2012</inceptionYear>
+
+    <properties>
+        <scala.version>2.9.1</scala.version>
+        <scala-plugin.version>2.14</scala-plugin.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>typesafe</id>
+            <name>Typesafe Repository</name>
+            <url>http://repo.typesafe.com/typesafe/releases/</url>
+        </repository>
+
+        <repository>
+            <id>scala-tools.org</id>
+            <name>Scala-Tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>oss.scalatest.sonatype.org</id>
+            <name>oss.sonatype.org Repository</name>
+            <url>https://oss.sonatype.org/content/groups/public/org/scalatest</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>oss.releases.sonatype.org</id>
+            <name>releases</name>
+            <url>http://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
+
+        <repository>
+            <id>oss.snapshots.sonatype.org</id>
+            <name>snapshots</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+
+        <repository>
+            <id>central</id>
+            <name>Maven repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+
+        <repository>
+            <id>ObjectWeb</id>
+            <name>ObjectWeb repository</name>
+            <url>http://maven.ow2.org/maven2</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>scala-tools.org</id>
+            <name>Scala-Tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2_${scala.version}</artifactId>
+            <version>1.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Pleasing IntelliJ, so it is not necessary to add scala compiler to module when opening project. -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/scala</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.scala</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.scala</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
