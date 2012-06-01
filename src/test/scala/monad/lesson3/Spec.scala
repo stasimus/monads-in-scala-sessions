@@ -121,5 +121,13 @@ class Spec extends Specification {
       res.isStable must be equalTo false
       box must be equalTo Marvelous
     }
+    "m flatMap {x => mzero} ≡ mzero" in {
+      val m = new Answer(1)
+      val res = m flatMap {
+        x => Marvelous
+      }
+
+      res must be equalTo Marvelous
+    }
   }
 }
