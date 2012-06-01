@@ -64,6 +64,16 @@ class Spec extends Specification {
 
       res.value must be equalTo (flatten(box map func1).value)
     }
+    "m flatMap unit ≡ m" in {
+      val box: Answer[Char] = new Answer('a')
+      val unit: Char => Answer[Char] = (x) => new Answer(x)
+
+      val res = box flatMap unit
+
+      res must be equalTo (box flatMap {
+        x => unit(x)
+      })
+    }
     "Marvelous isn't readable" in {
       val box = Marvelous
       val res = box map {
