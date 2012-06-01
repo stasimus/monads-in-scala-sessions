@@ -85,6 +85,22 @@ class Spec extends Specification {
 
       res must be equalTo func(value)
     }
+    "m flatMap g flatMap f ≡ m flatMap {x => g(x) flatMap f}" in {
+      val m = new Answer(1)
+      val g: Int => Response[Int] = {
+        (in) => new Answer(in + 1)
+      }
+      val f: Int => Response[Int] = {
+        (in) => new Answer(in + 2)
+      }
+
+      val res = m flatMap g flatMap f
+      val expected = m flatMap {
+        x => g(x) flatMap (f)
+      }
+
+      res must be equalTo expected
+    }
     "Marvelous isn't readable" in {
       val box = Marvelous
       val res = box map {
