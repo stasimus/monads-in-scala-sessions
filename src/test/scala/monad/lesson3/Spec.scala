@@ -74,6 +74,17 @@ class Spec extends Specification {
         x => unit(x)
       })
     }
+    "unit(x) flatMap f ≡ f(x)" in {
+      val value = 'b'
+      def unit[B]: B => Response[B] = new Answer(_)
+      val func: Char => Response[String] = {
+        (in) => new Answer(in.toString)
+      }
+
+      val res = unit(value) flatMap func
+
+      res must be equalTo func(value)
+    }
     "Marvelous isn't readable" in {
       val box = Marvelous
       val res = box map {
