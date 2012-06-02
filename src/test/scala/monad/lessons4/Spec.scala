@@ -52,5 +52,21 @@ class Spec extends Specification {
 
       res must be equalTo m
     }
+    "m filter {x => true} ≡ m" in {
+      val m = new Answer(0)
+      val res = m filter {
+        _ => true
+      }
+
+      res must be equalTo m
+    }
+    "m filter {x => false} ≡ mzero" in {
+      val m = new Answer(0)
+      val res = m filter {
+        _ => false
+      }
+
+      res must be equalTo Marvelous
+    }
   }
 }

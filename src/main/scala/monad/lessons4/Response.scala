@@ -14,9 +14,11 @@ sealed abstract class Response[+A](val isStable: Boolean) {
 
   def flatten[B](outer: Response[Response[B]]): Response[B]
 
-  final def flatMap[B](f: A => Response[B]): Response[B] = flatten(map(f))
-
   def orElse[B >: A](alternative: => Response[B]): Response[B]
+
+  def filter(p: A => Boolean): Response[A]
+
+  final def flatMap[B](f: A => Response[B]): Response[B] = flatten(map(f))
 }
 
 final case class Answer[+A](value: A) extends Response[A](true) {
@@ -26,6 +28,8 @@ final case class Answer[+A](value: A) extends Response[A](true) {
   def flatten[B](outer: Response[Response[B]]) = outer.value
 
   def orElse[B >: A](alternative: => Response[B]) = this
+
+  def filter(p: A => Boolean): Response[A] = if (p(value)) this else Marvelous
 }
 
 case object Marvelous extends Response[Nothing](false) {
@@ -37,4 +41,6 @@ case object Marvelous extends Response[Nothing](false) {
   def flatten[B](outer: Response[Response[B]]) = Marvelous
 
   def orElse[B >: Nothing](alternative: => Response[B]) = alternative
+
+  def filter(p: Nothing => Boolean): Response[Nothing] = Marvelous
 }
